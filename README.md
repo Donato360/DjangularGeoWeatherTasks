@@ -37,7 +37,13 @@ The application is conveniently packaged using a Docker Compose file, which defi
 
 3. **Frontend (ng):** Built from a directory named todo_frontend, presumably containing its Dockerfile. Accessible via port 8080 on the host machine.
 
-By executing `docker-compose up` with this configuration file, all three services start together. The Django backend connects to the Postgres database, and the frontend can seamlessly communicate with the Django backend.
+Run `docker-compose build --no-cache` to build the Docker images, ensuring that no cache is used during the build process:
+
+By executing `docker-compose up -d` with this configuration file, all three services start together. The Django backend connects to the Postgres database, and the frontend can seamlessly communicate with the Django backend.
+
+After starting the services, initialize the database by executing the following commands:
+`docker exec -it dj bash`
+`python manage.py migrate` 
 
 ## Contributions
 
