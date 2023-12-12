@@ -1,0 +1,138 @@
+<p-toast></p-toast>
+
+<div class="flex flex-column align-items-center justify-content-center">
+<div class="card">
+  
+  <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <h4>Tasks</h4>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table [value]="tasks" dataKey="id" editMode="row">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>title</th>
+                <th>description</th>
+                <th>location</th>
+                <th>temperature</th>
+                <th>completed</th>
+                <th style="width:8rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task let-editing="editing" let-ri="rowIndex">
+            <tr [ngStyle]="{
+                              'background': 
+                                task.temperature < 10 ? 'lightskyblue' :
+                                (task.temperature > 10 && task.temperature <= 20) ? 'lemonchiffon' :
+                                (task.temperature > 20 && task.temperature <= 35) ? 'orange' :
+                                'darkorange'
+                            }" [pEditableRow]="task">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="task.title">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.title}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="task.description" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.description}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="locations" [(ngModel)]="task.location" [style]="{'width':'300px'}" placeholder="Select"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.location}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="task.temperature">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.temperature + '°C'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <div class="p-field-checkbox">
+                            <p-checkbox [(ngModel)]="task.is_done" [binary]="true" inputId="binary"></p-checkbox>  
+                          </div> 
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{task.is_done}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(task)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(task)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(task, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    <button *ngIf="!editing" pButton pRipple type="button" pDeleteRow icon="pi pi-trash" (click)="onRowDelete(task, task.id)" class="p-button-rounded p-button-text p-button-danger"></button>
+                  </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</div>
+
+<p-dialog [(visible)]="taskDialog" [style]="{width: '450px'}" header="Task Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label style="margin-right: 62px;" for="title">title</label>
+            <input type="text" pInputText id="title" [(ngModel)]="task.title" required autofocus />
+            <small class="p-error" *ngIf="submitted && !task.title">title is required.</small>
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="task.description" required rows="3" cols="52"></textarea>
+            <small class="p-invalid" *ngIf="submitted && !task.description">description is required.</small>
+        </div>
+        <div class="field">
+            <label style="margin-right: 26px" for="locations">locations</label>
+            <p-dropdown [options]="locations" [(ngModel)]="task.location" [style]="{'width':'300px'}" placeholder="Select">
+            </p-dropdown>
+            <small class="p-invalid" *ngIf="submitted && !task.location">description is required.</small>
+        </div>
+
+        <div class="field">
+          <label style="margin-right: 3px;" for="temperature">temperature</label>
+          <p-inputNumber [(ngModel)]="task.temperature" inputId="temperature" suffix="℃" [min]="-90" [max]="65">
+          </p-inputNumber>
+        </div>
+
+        <div class="field">
+            <label style="margin-right: 5px;" for="is_done">completed</label>
+            <p-checkbox [(ngModel)]="task.is_done" [binary]="true" inputId="binary"></p-checkbox>
+            <small class="p-error" *ngIf="submitted && !task.is_done">completed is required.</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -1,0 +1,38 @@
+:host ::ng-deep .p-cell-editing {
+          padding-top: 0 !important;
+          padding-bottom: 0 !important;
+      }
+
+:host ::ng-deep .card {
+          margin-top: 60px;
+      }
+
+:host ::ng-deep .field {
+  display: flex;
+  align-items: center; /* Aligns items vertically at center */
+}
+
+:host ::ng-deep .field label {
+  margin-right: 10px; /* Adds 10px space between label and checkbox */
+}
+
+/* Ensure the checkbox component (p-checkbox directives) does not override the margin */
+:host ::ng-deep .field p-checkbox {
+  margin-left: 10px; /* Adds 10px space between label and checkbox if needed */
+}
+
+:host ::ng-deep .temp-cold {
+  background-color: blue !important;
+}
+
+:host ::ng-deep .temp-fresh {
+    background: orange !important;   
+}
+
+:host ::ng-deep .temp-warm {
+    background: orangered !important;   
+}
+
+:host ::ng-deep .temp-hot {
+  background: red !important;
+}
