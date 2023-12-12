@@ -17,20 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from todoapi import views as todoapi_views
-import oauth2_provider.views as oauth2_views
-
-
-# OAuth2 provider endpoints
-oauth2_endpoint_views = [
-    path('authorize/', oauth2_views.AuthorizationView.as_view(), name="authorize"),
-    path('token/', oauth2_views.TokenView.as_view(), name="token"),
-    path('revoke-token/', oauth2_views.RevokeTokenView.as_view(), name="revoke-token"),
-]
 
 # TODO: if we plan to expand the app URLS hould nbe moved into the related apps
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('o/', include((oauth2_endpoint_views, 'oauth2_provider'), namespace="oauth2_provider")),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/task/', todoapi_views.TaskList.as_view(), name='task-list'),
