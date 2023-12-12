@@ -25,6 +25,14 @@ SECRET_KEY = 'django-insecure-d89_ai!p#=c56)8of*@0$a*e1%ljhkbqded4u$fm!*%#dq)w9(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Security
+CSRF_COOKIE_SECURE = False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_HTTPONLY = True
+X_FRAME_OPTIONS = 'DENY'
+
 ALLOWED_HOSTS = []
 
 
@@ -40,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'todoapi',
     'corsheaders',
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'todoproj.urls'
+LOGIN_URL = '/admin/login/'
 
 TEMPLATES = [
     {
@@ -73,6 +83,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todoproj.wsgi.application'
 
+CLIENT_ID = '9415vo07vlfgR9pdaV49kVyQVwlhP6CcrUl6r6F3'
+CLIENT_SECRET = 'Itjem37Rn0OiXDYNt8SFvioubm5FUqcjzfBBiOQJ7qXibyvLjE4xsqEIPaw4gfNE3FdYbXf6Pyh4bOn9LU5eT4IlZTTnb3nArSJdvLdSUl6xcplo83TBtqENXMuDdxSY'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
