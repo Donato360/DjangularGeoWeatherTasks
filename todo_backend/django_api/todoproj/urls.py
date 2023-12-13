@@ -21,7 +21,6 @@ from todoapi import views as todoapi_views
 # TODO: if we plan to expand the app URLS hould nbe moved into the related apps
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/task/', todoapi_views.TaskList.as_view(), name='task-list'),
     path('api/task/<int:task_id>/', todoapi_views.TaskDetail.as_view(), name='task-detail'),

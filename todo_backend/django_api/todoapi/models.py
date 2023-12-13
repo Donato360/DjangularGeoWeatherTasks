@@ -25,6 +25,7 @@ class Task(TimeStampedModel):
     # task status: true(done) - false(pending)
     # TODO: create TASK_CHOISES to record more statuses like assigned, declined, paused etc.
     is_done = models.BooleanField(default=False)
+    due_date = models.DateField(null=True, blank=True)
 
     # Meta data about the database table.
     class Meta:
@@ -36,7 +37,7 @@ class Task(TimeStampedModel):
 
     # Define what to output when the model is printed as a string.
     def __str__(self):
-        return f'id: {self.id} - title: {self.title} - is_done: {self.status}'
+        return f'id: {self.id} - title: {self.title} - status: {self.is_done}'
     
 
 
