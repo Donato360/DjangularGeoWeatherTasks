@@ -47,7 +47,7 @@ After starting the services, initialize the database by executing the following 
 
 ## Take a look at the running front and back end
 
-Visit the designated addresses in your browser to observe the functioning of both the front and back end:
+Visit the designated addresses in your browser to observe the functioning of both the front and back end:<br>
 `http://localhost:8080/`
 `http://localhost/admin/`
 
