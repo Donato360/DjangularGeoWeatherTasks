@@ -39,6 +39,8 @@ services:
 
     depends_on:
       - db
+    environment:
+      - DJANGO_SETTINGS=dev
 
   ng:
       container_name: ng

@@ -14,3 +14,4 @@ requests==2.31.0
 sqlparse==0.4.4
 urllib3==2.1.0
 yarg==0.1.9
+uWSGI==2.0.23

@@ -23,10 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d89_ai!p#=c56)8of*@0$a*e1%ljhkbqded4u$fm!*%#dq)w9('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['server IP or domain']
 
 # Application definition
 
@@ -39,19 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'todoapi',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'todoproj.urls'
 
@@ -130,11 +130,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # The following lines declare two local development environments that are permitted to interact with
 # the application's API across different domains.
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-    'http://localhost:8080',
-    'http://localhost:8000',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:4200',
+#     'http://localhost:8080',
+#     'http://localhost:8000',
+# ]
 
 CORS_ALLOW_METHODS = (
     "DELETE",
