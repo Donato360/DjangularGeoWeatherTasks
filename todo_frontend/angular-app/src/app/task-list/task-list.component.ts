@@ -80,7 +80,7 @@ export class TaskListComponent implements OnInit {
 
     // Fetch country locations using the LocationService and process the response
     this.locationService.getAllCountries().subscribe(
-      (data) => {
+      (data: any[]) => {
         // Mapping received location data into a usable structure for the UI
         this.locationsObjects = data.map((location) => ({
           alpha2Code: location.alpha2Code,
@@ -90,7 +90,7 @@ export class TaskListComponent implements OnInit {
         // Concatenate location names and codes for better visualization and sort them
         this.locations = this.concatenateLocationDetails(this.locationsObjects).sort();
       },
-      (error) => {
+      (error: any) => {
         // Error handler for failed location fetch operation
         console.error('Error fetching countries', error);
       }
@@ -108,14 +108,14 @@ export class TaskListComponent implements OnInit {
   // Method to retrieve tasks using the ApiService and assign them to the local tasks array
   getList() {
     this.apiService.getTasks().subscribe(
-      (response) => {
+      (response: Task[]) => {
         // Success handler: set the tasks array and call method to process temperatures
         this.tasks = response;
         this.processTemperatures(this.tasks);
         // Display success message using PrimeNG's message service
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Success: Tasks retrieved' });
       },
-      (error) => {
+      (error: any) => {
         // Error handler: log the error and show error message to the user
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error: Tasks not retrieved' });
       }
@@ -143,12 +143,12 @@ export class TaskListComponent implements OnInit {
   updateTask(task: Task) {
     this.apiService.putTask(task)
       .subscribe(
-        (response) => {
+        (response: any) => {
           // Success handler: show success message and refresh task list
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Success: Task updated' });
           this.getList(); // Refresh the tasks list
         },
-        (error) => {
+        (error: any) => {
           // Error handler: show error message to the user
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error: Task not updated' });
         }
@@ -159,12 +159,12 @@ export class TaskListComponent implements OnInit {
   deleteTask(task_id: number) {
     this.apiService.deleteTask(task_id)
       .subscribe(
-        (response) => {
+        (response: any) => {
           // Success handler: show success message and refresh task list
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Success: Task successfully deleted!' });
           this.getList();
         },
-        (error) => {
+        (error: any) => {
           // Error handler: show error message to the user
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error: Failed to delete task. Please try again.' });
         }
@@ -209,12 +209,12 @@ export class TaskListComponent implements OnInit {
     // Create or add the task through the ApiService
     this.apiService.postTask(this.task)
       .subscribe(
-        (response) => {
+        (response: any) => {
           // Handle the successful response here; show success message and refresh task list
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Success: Task successfully created!' });
           this.getList();
         },
-        (error) => {
+        (error: any) => {
           // Handle the error response here; show error message to the user
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error: Failed to create task. Please try again.' });
         }
