@@ -55,7 +55,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-dropdown [options]="locations" [(ngModel)]="task.location" [style]="{'width':'300px'}" placeholder="Select"></p-dropdown>
+                            <p-dropdown appendTo="body" [options]="locations" [(ngModel)]="task.location" [style]="{'width':'300px'}" placeholder="Select"></p-dropdown>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{task.location}}
@@ -110,7 +110,7 @@
         </div>
         <div class="field">
             <label style="margin-right: 26px" for="locations">locations</label>
-            <p-dropdown [options]="locations" [(ngModel)]="task.location" [style]="{'width':'300px'}" placeholder="Select">
+            <p-dropdown appendTo="body" [options]="locations" [(ngModel)]="task.location" [style]="{'width':'300px'}" placeholder="Select">
             </p-dropdown>
             <small class="p-invalid" *ngIf="submitted && !task.location">description is required.</small>
         </div>
